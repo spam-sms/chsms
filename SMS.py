@@ -32,7 +32,7 @@ def initAPI(phone):
 
         [
             'https://kapibaras.ru/api/lk/sendCode',
-            60, "Kapibaras", "GET", {'phone': f'+{self.formatted_phone[0]}({self.formatted_phone[1:4]})-{self.formatted_phone[4:7]}-{self.formatted_phone[7:11]}', 'city': 1}, ""],
+            60, "Kapibaras", "GET", {'phone': f'+{phone[0]}({phone[1:4]})-{phone[4:7]}-{phone[7:11]}', 'city': 1}, ""],
 
         ["https://www.mvideo.ru/internal-rest-api/common/atg/rest/actors/VerificationActor/getCode", 60, "М. Видео", "POST",
          {"phone": phone, "recaptcha": 'off', "g-recaptcha-response": ""},
